@@ -26,7 +26,7 @@ if [[ -z $sourceMe ]]; then
     command mkdir -p ./tmp
 
     destFile=$PWD/tmp/ps1-foo-setup-${version}.sh
-    command makeself.sh --base64 $PWD/bin $destFile "ps1-foo ${version}" ./setup.sh  || die # [src-dir] [dest-file] [label] [setup-command]
+    command makeself.sh --follow --base64 $PWD/bin $destFile "ps1-foo ${version}" ./setup.sh  || die # [src-dir] [dest-file] [label] [setup-command]
     (
         cd $(dirname $destFile) && ln -sf $(basename $destFile) latest.sh
     )
