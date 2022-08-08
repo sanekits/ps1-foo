@@ -16,23 +16,6 @@ reload_reqd=false
 
 source ${Scriptdir}/shellkit/shellkit_setup_base || die Failed sourcing shellkit_base
 
-shrc_fixup() {
-    # We must ensure that .bashrc sources our ps1-foo.bashrc script
-    (
-        # Each kit defines a [Kitname]-semaphore function which just prints '1'
-        /bin/bash -l -c "type -f ${Kitname}-semaphore >/dev/null"
-    ) &>/dev/null
-    [[ $? -eq 0 ]] && {
-        return
-    }
-
-    ( # Add hook to .bashrc
-        echo "[[ -n \$PS1 && -f \${HOME}/.local/bin/${Kitname}/${Kitname}.bashrc ]] && source \${HOME}/.local/bin/${Kitname}/${Kitname}.bashrc # Added by ${Kitname}-setup.sh"
-        echo
-    ) >> ${HOME}/.bashrc
-    reload_reqd=true
-}
-
 
 main() {
     if [[ ! -d $HOME/.local/bin/ps1-foo ]]; then

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Running cdpp-version.sh is the correct way to
-# get the home path for cdpp and its tools.
-Ps1FooVersion=0.5.0
+# Running ps1-foo-version.sh is the correct way to
+# get the home path for ps1-foo and its tools.
+Ps1FooVersion=0.6.0
 
 set -e
 
