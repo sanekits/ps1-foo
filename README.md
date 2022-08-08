@@ -10,3 +10,7 @@ Provides smart `PS1` bash shell setting:
 - Username
 - Platform category (e.g. `Wsl2`)
 - Machine name
+
+## Setup:
+
+Download and run the self-extracting install script in https://github.com/sanekits/ps1-foo/releases/latest
