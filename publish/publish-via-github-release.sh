@@ -1,8 +1,11 @@
 #!/bin/bash
 # publish/publish-via-github-release.sh
 
+
 Script=$(command readlink -f $0)
 Scriptdir=$(command dirname $Script)
+Kitname=$(cat $(readlink -f ${Scriptdir}/../Kitname))
+
 
 die() {
     builtin echo "ERROR: $@" >&2
@@ -10,6 +13,7 @@ die() {
 }
 
 if [[ -z $sourceMe ]]; then
+    [[ -n $Kitname ]] || die 99
     builtin cd ${Scriptdir}/../bin || die 100
     if [[ $( command git status -s . | command wc -l 2>/dev/null) -gt 0 ]]; then
         die "One or more files in $PWD need to be committed before publish"
