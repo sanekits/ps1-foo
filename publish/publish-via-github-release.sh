@@ -4,7 +4,7 @@
 
 Script=$(command readlink -f $0)
 Scriptdir=$(command dirname $Script)
-Kitname=$(cat $(readlink -f ${Scriptdir}/../Kitname))
+Kitname=$(cat $(readlink -f ${Scriptdir}/Kitname))
 
 
 die() {
