@@ -1,5 +1,5 @@
 #!/bin/bash
-# setup.sh for cdpp
+# setup.sh for ps1-foo
 
 die() {
     echo "ERROR: $@" >&2
@@ -35,24 +35,32 @@ path_fixup() {
     if is_on_path "${tgt_dir}"; then
         return
     fi
-    local profile=$HOME/.bash_profile
-    [[ -f $profile ]] || profile=$HOME/.profile
-    echo 'export PATH=$HOME/.local/bin:$PATH # Added by cdpp-setup.sh' >> ${profile} || die 202
-    echo "~/.local/bin added to your PATH." >&2
+    (
+        cd $HOME
+        local profile=.bash_profile
+        [[ -f $profile ]] || profile=.profile
+        tmp_profile="profile-tmp.$$"
+        echo 'export PATH=$HOME/.local/bin:$PATH # Added by ps1-foo-setup.sh' > "${tmp_profile}" || die 202
+        [[ -e $profile ]] && cat $profile >> "${tmp_profile}"
+        mv $tmp_profile $profile || die 203
+        echo "WARNING: ~/.local/bin was added to your PATH by modifying ${PWD}/${profile}.  It is up to you to ensure that the contents of ~/.local/bin are benign!" >&2
+    )
     reload_reqd=true
 }
 
 shrc_fixup() {
-    # We must ensure that .bashrc sources our cdpp script
-    #grep -q "Added by cdpp-setup.sh" ${HOME}/.bashrc 2>/dev/null && return
-    [[ -f ${HOME}/.cdpprc ]] || cp ${HOME}/.local/bin/cdpp/cdpprc ${HOME}/.cdpprc
-    local vk=$( /bin/bash -ic 'type -t cdpp 2>/dev/null' )
-    if [[ $vk == *function ]]; then
+    # We must ensure that .bashrc sources our ps1-foo.bashrc script
+    (
+        unset ps1_foo_semaphore
+        source ~/.bashrc
+        type -f ps1_foo_semaphore
+    ) &>/dev/null
+    [[ $? -eq 0 ]] && {
         return
-    fi
+    }
 
     (
-        echo '[[ -n $PS1 && -f ${HOME}/.local/bin/cdpp/cdpp ]] && source ${HOME}/.local/bin/cdpp/cdpp # Added by cdpp-setup.sh'
+        echo '[[ -n $PS1 && -f ${HOME}/.local/bin/ps1-foo/ps1-foo.bashrc ]] && source ${HOME}/.local/bin/ps1-foo/ps1-foo.bashrc # Added by ps1-foo-setup.sh'
         echo
     ) >> ${HOME}/.bashrc
     reload_reqd=true
@@ -61,21 +69,22 @@ shrc_fixup() {
 
 main() {
     reload_reqd=false
-    if [[ ! -d $HOME/.local/bin/cdpp ]]; then
-        if [[ -e $HOME/.local/bin/cdpp ]]; then
-            die "$HOME/.local/bin/cdpp exists but is not a directory.  Refusing to overwrite"
+    if [[ ! -d $HOME/.local/bin/ps1-foo ]]; then
+        if [[ -e $HOME/.local/bin/ps1-foo ]]; then
+            die "$HOME/.local/bin/ps1-foo exists but is not a directory.  Refusing to overwrite"
         fi
-        command mkdir -p $HOME/.local/bin/cdpp || die "Failed creating $HOME/.local/bin/cdpp"
+        command mkdir -p $HOME/.local/bin/ps1-foo || die "Failed creating $HOME/.local/bin/ps1-foo"
     fi
-    if [[ $(inode $Script) -eq $(inode ${HOME}/.local/bin/cdpp/setup.sh) ]]; then
+    if [[ $(inode $Script) -eq $(inode ${HOME}/.local/bin/ps1-foo/setup.sh) ]]; then
         die "cannot run setup.sh from ${HOME}/.local/bin"
     fi
-    builtin cd ${HOME}/.local/bin/cdpp || die "101"
+    builtin cd ${HOME}/.local/bin/ps1-foo || die "101"
     command rm -rf ./* || die "102"
     [[ -d ${Scriptdir} ]] || die "bad Scriptdir [$Scriptdir]"
     command cp -r ${Scriptdir}/* ./ || die "failed copying from ${Scriptdir} to $PWD"
     builtin cd .. # Now we're in .local/bin
-    command ln -sf ./cdpp/cdpp-version.sh ./
+    command ln -sf ./ps1-foo/ps1-foo-version.sh ./ || die "101.5"
+    command ln -sf ./ps1-foo/parse_ps1_host_suffix.sh ./ || die "101.6"
     path_fixup "$PWD" || die "102"
     shrc_fixup || die "104"
     $reload_reqd && builtin echo "Shell reload required ('bash -l')" >&2

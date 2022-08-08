@@ -1,5 +1,8 @@
 # ps1-foo.bashrc
 
+function ps1_foo_semaphore() {
+    echo 1
+}
 
 function parse_lh_status {
     [[ -z $HISTFILE ]] && return;
