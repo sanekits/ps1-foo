@@ -16,15 +16,15 @@ if [[ -z $sourceMe ]]; then
     fi
     command git rev-parse HEAD > ./hashfile || die 104
     builtin cd ${Scriptdir}/.. || die 101
-    version=$( bin/cdpp-version.sh | cut -f2)
+    version=$( bin/ps1-foo-version.sh | cut -f2)
     [[ -z $version ]] && die 103
 
     command mkdir -p ./tmp
 
-    destFile=$PWD/tmp/cdpp-setup-${version}.sh
-    command makeself.sh --base64 $PWD/bin $destFile "cdpp ${version}" ./setup.sh  || die # [src-dir] [dest-file] [label] [setup-command]
+    destFile=$PWD/tmp/ps1-foo-setup-${version}.sh
+    command makeself.sh --base64 $PWD/bin $destFile "ps1-foo ${version}" ./setup.sh  || die # [src-dir] [dest-file] [label] [setup-command]
     (
         cd $(dirname $destFile) && ln -sf $(basename $destFile) latest.sh
     )
-    [[ $? -eq 0 ]] && echo "Done: upload $PWD/tmp/cdpp-setup-${version}.sh to Github release page (https://github.com/sanekits/cdpp/releases)"
+    [[ $? -eq 0 ]] && echo "Done: upload $PWD/tmp/ps1-foo-setup-${version}.sh to Github release page (https://github.com/sanekits/ps1-foo/releases)"
 fi
