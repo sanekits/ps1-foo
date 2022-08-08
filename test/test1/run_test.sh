@@ -1,7 +1,6 @@
 #!/bin/bash
 # run_test.sh
 
-set -x
 scriptName=$(readlink -f $0)
 scriptDir=$(dirname ${scriptName})
 
