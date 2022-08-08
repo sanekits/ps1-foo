@@ -10,6 +10,7 @@ die() {
 FOO_BIN="$(readlink -f ../../bin)"
 PATH=${FOO_BIN}:$PATH
 echo "PATH=$PATH"
+unset t_setFancyPs1 parse_ext_tail parse_lh_status
 
 ## WHEN:
 source ${FOO_BIN}/ps1-foo.bashrc

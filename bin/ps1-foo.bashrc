@@ -1,8 +1,6 @@
 # ps1-foo.bashrc
 
 
-unset PS2_HOST_SUFFIX
-
 function parse_lh_status {
     [[ -z $HISTFILE ]] && return;
     [[ $HISTFILE == ~/.bash_history ]] && return

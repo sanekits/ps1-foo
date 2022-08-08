@@ -30,3 +30,5 @@ function parse_host_suffix {
     PS1_HOST_SUFFIX='Generic'  # undetected
     echo $PS1_HOST_SUFFIX
 }
+
+parse_host_suffix
