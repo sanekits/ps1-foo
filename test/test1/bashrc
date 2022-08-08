@@ -1,0 +1,34 @@
+# This bashrc is a self-contained setup+test component.  Just invoke
+# /bin/bash --rcfile ./bashrc and check the result code
+die() {
+    echo "ERROR: $*" >&2
+    exit 1
+}
+
+
+##  GIVEN:
+FOO_BIN="$(readlink -f ../../bin)"
+PATH=${FOO_BIN}:$PATH
+echo "PATH=$PATH"
+
+## WHEN:
+source ${FOO_BIN}/ps1-foo.bashrc
+
+## THEN:
+for inner_func in t_setFancyPs1 parse_ext_tail parse_lh_status ; do
+    [[ "$( type -t $inner_func )"  == function ]] || die "Missing inner_func $inner_func"
+done
+
+echo "
+
+=====  Manual inspection required =======
+You're now in the inner shell: examine the prompt for deficiencies:
+- Current dir with ... prefix?
+- Host OS identified?
+- User identified?
+- Machine name identified?
+- Date/time?
+- Colors?
+
+Type \"exit 0\" or \"exit 1\" to indicate pass/fail
+"
