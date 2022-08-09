@@ -1,16 +1,16 @@
 # ps1-foo.bashrc
 
-function ps1_foo_semaphore() {
+ps1-foo-semaphore() {
     echo 1
 }
 
-function parse_lh_status {
+parse_lh_status() {
     [[ -z $HISTFILE ]] && return;
     [[ $HISTFILE == ~/.bash_history ]] && return
     echo -n "+H"
 }
 
-function parse_ext_tail {
+parse_ext_tail() {
     # If we've shelled-out from vi/vim, we want to know about it to avoid chaos:
     if [[ -n $VIM ]]; then
         echo -n '[vi]'
@@ -21,7 +21,7 @@ function parse_ext_tail {
     fi
 }
 
-function t_setFancyPs1 {
+t_setFancyPs1() {
     type -t parse_git_branch  &>/dev/null || {
         # parse_git_branch can be externally defined.  If it's not, we
         # stub it out:
