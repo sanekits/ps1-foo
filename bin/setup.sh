@@ -1,1 +1,1 @@
-shellkit/setup.sh
+../shellkit/setup.sh
