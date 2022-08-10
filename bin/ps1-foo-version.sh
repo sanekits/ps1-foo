@@ -7,9 +7,9 @@ Ps1FooVersion=0.6.2
 set -e
 
 Script=$(readlink -f "$0")
-Scriptdir=$(dirname -- "$Script")
+scriptDir=$(dirname -- "$Script")
 
 
 if [ -z "$sourceMe" ]; then
-    printf "%s\t%s" ${Scriptdir}/ps1-foo ${Ps1FooVersion}
+    printf "%s\t%s" ${scriptDir}/ps1-foo ${Ps1FooVersion}
 fi
