@@ -11,7 +11,6 @@ stub() {
 scriptName="$(canonpath  $0)"
 scriptDir=$(command dirname -- "${scriptName}")
 
-stub "scriptDir=${scriptDir}"
 source ${scriptDir}/shellkit/setup-base.sh
 
 die() {
@@ -20,8 +19,9 @@ die() {
 }
 
 main() {
-    builtin echo "args:[$*]"
     Script=${scriptName} main_base "$@"
+    cd ${HOME}/.local/bin || die 208
+    command ln -sf ./${Kitname}/parse_ps1_host_suffix.sh ./ || die "201.3"
 }
 
 [[ -z ${sourceMe} ]] && main "$@"
