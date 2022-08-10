@@ -21,7 +21,7 @@ die() {
 
 main() {
     builtin echo "args:[$*]"
-    main_base "$@"
+    Script=${scriptName} main_base "$@"
 }
 
 [[ -z ${sourceMe} ]] && main "$@"
