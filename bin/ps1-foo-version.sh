@@ -2,7 +2,7 @@
 
 # Running ps1-foo-version.sh is the correct way to
 # get the home path for ps1-foo and its tools.
-Ps1FooVersion=0.6.2
+Ps1FooVersion=0.7.0
 
 set -e
 
