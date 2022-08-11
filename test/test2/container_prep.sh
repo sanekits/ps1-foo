@@ -1,5 +1,5 @@
 #!/bin/bash
-# run_test.sh
+# container_prep.sh
 
 scriptName="$(command readlink -f $0)"
 scriptDir=$(command dirname -- "${scriptName}")
@@ -13,9 +13,7 @@ stub() {
    builtin echo "  <<< STUB[$*] >>> " >&2
 }
 main() {
-    TEST_DIR=${scriptDir} ${scriptDir}/../../shellkit/docker-test.sh || die docker-test.sh returned failure
-
-    builtin echo "args:[$*]"
+    apt-get install -y git
 }
 
 [[ -z ${sourceMe} ]] && main "$@"
