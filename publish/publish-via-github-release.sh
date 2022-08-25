@@ -1,1 +1,0 @@
-../shellkit/publish-via-github-release.sh

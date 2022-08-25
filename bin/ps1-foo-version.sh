@@ -1,15 +1,26 @@
 #!/bin/bash
 
 # Running ps1-foo-version.sh is the correct way to
-# get the home path for ps1-foo and its tools.
-Ps1FooVersion=0.7.5
+# get the home install path for the tool
+KitVersion=0.8.0
 
-set -e
+canonpath() {
+    builtin type -t realpath.sh &>/dev/null && {
+        realpath.sh -f "$@"
+        return
+    }
+    builtin type -t readlink &>/dev/null && {
+        command readlink -f "$@"
+        return
+    }
+    # Fallback: Ok for rough work only, does not handle some corner cases:
+    ( builtin cd -L -- "$(command dirname -- $0)"; builtin echo "$(command pwd -P)/$(command basename -- $0)" )
+}
 
-Script=$(readlink -f "$0")
-scriptDir=$(dirname -- "$Script")
+Script=$(canonpath "$0")
+Scriptdir=$(dirname -- "$Script")
 
 
-if [ -z "$sourceMe" ]; then
-    printf "%s\t%s" ${scriptDir}/ps1-foo ${Ps1FooVersion}
+if [[ -z "$sourceMe" ]]; then
+    builtin printf "%s\t%s\n" ${Scriptdir}/ps1-foo $KitVersion
 fi
