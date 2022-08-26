@@ -22,5 +22,5 @@ Scriptdir=$(dirname -- "$Script")
 
 
 if [[ -z "$sourceMe" ]]; then
-    builtin printf "%s\t%s\n" ${Scriptdir}/ps1-foo $KitVersion
+    builtin printf "%s\t%s\n" ${Scriptdir} $KitVersion
 fi
