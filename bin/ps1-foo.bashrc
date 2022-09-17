@@ -1,8 +1,8 @@
-#!/bin/bash ps1-foo.bashrc
+# ps1-foo.bashrc - shell init file for ps1-foo sourced from ~/.bashrc
 
 ps1-foo-semaphore() {
-    # Installer detects with this function
-    echo 1
+    # shpm detects wth this function
+    [[ 1 -eq  1 ]]
 }
 
 parse_lh_status() {
@@ -18,6 +18,10 @@ parse_ext_tail() {
         echo -n '[vi]'
         return
     }
+}
+
+parse_ps1_host_suffix() {
+    parse_ps1_host_suffix.sh 2>/dev/null
 }
 
 t_setFancyPs1() {
