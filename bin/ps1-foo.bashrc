@@ -21,6 +21,13 @@ parse_ext_tail() {
 }
 
 t_setFancyPs1() {
+    [ $? -eq 0 ] && local prevResult=true || prevResult=false
+    local prevResultInd
+    if $prevResult; then
+        prevResultInd=$(printf "\[\033[01;32m\]""\xE2\x9C\x93""\[\033[;0m\]")
+    else
+        prevResultInd=$(printf "\[\033[01;31m\]""\xE2\x9C\x95""\[\033[;0m\]")
+    fi
     # Set the PS1 variable on shell init:
     type -t parse_git_branch  &>/dev/null || {
         # parse_git_branch can be externally defined.  If it's not, we
@@ -29,12 +36,13 @@ t_setFancyPs1() {
     }
 
     PROMPT_DIRTRIM=3
+
     # NOTE: to avoid problems with cursor positioning due to fancy PS1,
     # be aware of the need to escape non-printing chars (see https://stackoverflow.com/a/19501528/237059)
     # That's what makes the prompt so hard to read.
-PS1='
+PS1="
 \[\033[1;33m\][\D{%m-%d %H:%M.%S}]\[\033[0m\] \[\033[1;35m\]\w\[\033[0m\]$(parse_git_branch)
-\[\033[1;36m\][\u $(parse_ps1_host_suffix.sh) \h]\[\033[0m\]$(parse_ext_tail)$Ps1Tail$(parse_lh_status)> '
+\[\033[1;36m\][\u $(parse_ps1_host_suffix.sh) \h]\[\033[0m\]$(parse_ext_tail)$Ps1Tail$(parse_lh_status)${prevResultInd}> "
 }
 
-t_setFancyPs1
+PROMPT_COMMAND=t_setFancyPs1
