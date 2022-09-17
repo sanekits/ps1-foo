@@ -21,6 +21,6 @@ Script=$(canonpath "$0")
 Scriptdir=$(dirname -- "$Script")
 
 
-f [[ -z "$sourceMe" ]]; then
+if [[ -z "$sourceMe" ]]; then
     builtin printf "%s\t%s\n" ${Scriptdir} $KitVersion
 fi
