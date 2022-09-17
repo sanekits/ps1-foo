@@ -11,10 +11,13 @@ kit_depends := \
     bin/ps1-foo.bashrc \
     bin/ps1-foo.sh
 
+.PHONY: publish
 
-publish: pre-publish
-	@# TODO: you can customize publication by adding steps here (before publish-common)
-	@# or after
-	make publish-common
-	@# (After common publication)
-	@echo publish complete OK
+
+publish: pre-publish publish-common release-draft-upload release-list
+
+
+	@echo ">>>> publish complete OK.  <<<"
+	@echo ">>>> Manually publish the release from this URL when satisfied, <<<<"
+	@echo ">>>> and then change ./version to avoid accidental confusion. <<<<"
+	cat tmp/draft-url
