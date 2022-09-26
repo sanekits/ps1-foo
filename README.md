@@ -15,7 +15,7 @@ Provides smart `PS1` bash shell setting:
 
 Download and install the self-extracting setup script:
 
-    https://github.com/sanekits/ps1-foo/releases/latest/downloads/ps1-foo-setup-0.8.2.sh
+    https://github.com/sanekits/ps1-foo/releases/latest/downloads/ps1-foo-setup-0.8.3.sh
 
 Or **if** [shellkit-pm](https://github.com/sanekits/shellkit-pm) is installed:
 

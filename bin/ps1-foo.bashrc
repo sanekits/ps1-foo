@@ -21,7 +21,9 @@ parse_ext_tail() {
 }
 
 parse_ps1_host_suffix() {
-    parse_ps1_host_suffix.sh 2>/dev/null
+    [[ -x ~/.local/bin/parse_ps1_host_suffix.sh ]] &&  {
+        ~/.local/bin/parse_ps1_host_suffix.sh 2>/dev/null
+    }
 }
 
 t_setFancyPs1() {
@@ -49,4 +51,7 @@ PS1="
 \[\033[1;36m\][\u $(parse_ps1_host_suffix.sh) \h]\[\033[0m\]$(parse_ext_tail)$Ps1Tail$(parse_lh_status)${prevResultInd}> "
 }
 
-PROMPT_COMMAND=t_setFancyPs1
+source ~/.local/bin/ps1-foo/prompt-command-wrap.bashrc
+
+__pcwrap_register t_setFancyPs1
+
