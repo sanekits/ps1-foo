@@ -8,7 +8,10 @@ ps1-foo-semaphore() {
 parse_lh_status() {
     # +H indicates a local history file is active
     [[ -z $HISTFILE ]] && return;
-    [[ $HISTFILE == ~/.bash_history ]] && return
+    [[ -z $DEFAULT_HISTFILE ]] && {
+        local DEFAULT_HISTFILE=~/.bash_history;
+    }
+    [[ $HISTFILE == $DEFAULT_HISTFILE ]] && return
     echo -n "+H"
 }
 
