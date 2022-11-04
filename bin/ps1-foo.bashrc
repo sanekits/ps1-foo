@@ -51,7 +51,7 @@ t_setFancyPs1() {
     # That's what makes the prompt so hard to read.
 PS1="
 \[\033[1;33m\][\D{%m-%d %H:%M.%S}]\[\033[0m\] \[\033[1;35m\]\w\[\033[0m\]$(parse_git_branch)
-\[\033[1;36m\][\u $(parse_ps1_host_suffix.sh) \h]\[\033[0m\]$(parse_ext_tail)$Ps1Tail$(parse_lh_status)${prevResultInd}> "
+\[\033[1;36m\][\u $(parse_ps1_host_suffix) \h]\[\033[0m\]$(parse_ext_tail)$Ps1Tail$(parse_lh_status)${prevResultInd}> "
 }
 
 source ~/.local/bin/ps1-foo/prompt-command-wrap.bashrc
