@@ -4,6 +4,8 @@ function parse_host_suffix {
     [[ -n $PS1_HOST_SUFFIX ]] && { echo $PS1_HOST_SUFFIX; return; }
     [[ -n $PS1_SUPPRESS_HOST_SUFFIX ]] && return
     [[ -f /.dockerenv ]] && { PS1_HOST_SUFFIX='Docker'; echo $PS1_HOST_SUFFIX; return; }
+    grep -sq docker /proc/1/cgroup && { PS1_HOST_SUFFIX='Docker'; echo $PS1_HOST_SUFFIX; return; }
+
     case $(uname -a) in
         Darwin*)
             PS1_HOST_SUFFIX='Mac'; echo $PS1_HOST_SUFFIX; return
