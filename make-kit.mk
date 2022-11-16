@@ -18,7 +18,7 @@ pcw_depends := $(shell $(MAKE) -s -C ../prompt-command-wrap pcw-deps)
 
 # TODO: when all legacy kits are migrated, move this dependency
 # into the main Makefile
-publish-common: conformity-check
+#publish-common: conformity-check
 publish: pre-publish publish-common release-draft-upload release-list
 
 
