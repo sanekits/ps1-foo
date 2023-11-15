@@ -3,7 +3,7 @@ function parse_host_suffix {
     # What sort of unix variant/flavor are we?
     [[ -n $PS1_HOST_SUFFIX ]] && { echo $PS1_HOST_SUFFIX; return; }
     [[ -n $PS1_SUPPRESS_HOST_SUFFIX ]] && return
-    grep -sq code-server-init /proc/1/cmdline 2>/dev/null && { PS1_HOST_SUFFIX='Spaces'; echo "$PS1_HOST_SUFFIX; return; }
+    grep -sq code-server-init /proc/1/cmdline 2>/dev/null && { PS1_HOST_SUFFIX='Spaces'; echo "$PS1_HOST_SUFFIX"; return; }
     [[ -f /.dockerenv ]] && { PS1_HOST_SUFFIX='Docker'; echo $PS1_HOST_SUFFIX; return; }
     grep -sq docker /proc/1/cgroup && { PS1_HOST_SUFFIX='Docker'; echo $PS1_HOST_SUFFIX; return; }
 
