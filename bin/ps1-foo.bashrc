@@ -24,8 +24,8 @@ parse_ext_tail() {
 }
 
 parse_ps1_host_suffix() {
-    [[ -x ~/.local/bin/parse_ps1_host_suffix.sh ]] &&  {
-        ~/.local/bin/parse_ps1_host_suffix.sh 2>/dev/null
+    [[ -x ${HOME}/.local/bin/ps1-foo/parse_ps1_host_suffix.sh ]] &&  {
+        ${HOME}/.local/bin/ps1-foo/parse_ps1_host_suffix.sh 2>/dev/null
     }
 }
 
