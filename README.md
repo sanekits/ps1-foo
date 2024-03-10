@@ -15,7 +15,7 @@ Provides smart `PS1` bash shell setting:
 
 Download and install the self-extracting setup script:
 ```
-curl -L https://github.com/sanekits/ps1-foo/releases/download/1.0.2/ps1-foo-setup-1.0.2.sh \
+curl -L https://github.com/sanekits/ps1-foo/releases/download/1.0.3/ps1-foo-setup-1.0.3.sh \
     -o ~/tmp$$.sh && bash ~/tmp$$.sh && rm ~/tmp$$.sh
 ```
 
