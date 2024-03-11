@@ -15,6 +15,10 @@ pcw_depends := $(shell $(MAKE) -s -C ../prompt-command-wrap pcw-deps)
 build_depends += $(../prompt-command-wrap/tmp/promp-command-wrap.bashrc)
 
 ../prompt-command-wrap/tmp/prompt-command-wrap.bashrc: $(pcw_depends)
+	@[[ -d ../prompt-command-wrap/tmp ]] || {
+		echo "ERROR: dependency ../prompt-command-wrap must be installed first." >&2
+		exit 19
+	}
 	$(MAKE) -s -C ../prompt-command-wrap build
 bin/prompt-command-wrap.bashrc: ../prompt-command-wrap/tmp/prompt-command-wrap.bashrc
 	cp $< $@
