@@ -2,17 +2,17 @@
 
 function parse_host_suffix {
     # What sort of unix variant/flavor are we?
-    [[ -n $PS1_HOST_SUFFIX ]] && {
-        echo $PS1_HOST_SUFFIX;
+    if [[ -n $PS1_HOST_SUFFIX ]]; then
+        echo "$PS1_HOST_SUFFIX"
         return;
-    }
+    fi
     [[ -n $PS1_SUPPRESS_HOST_SUFFIX ]] \
         && return
-    grep -sq code-server-init /proc/1/cmdline 2>/dev/null && {
+    if [[ "${SPACES__ENV:-}" == yes ]]; then
         PS1_HOST_SUFFIX='Spaces';
         echo "$PS1_HOST_SUFFIX";
         return;
-    }
+    fi
     [[ -f /.dockerenv ]] && {
         PS1_HOST_SUFFIX='Docker';
         echo $PS1_HOST_SUFFIX;
@@ -29,12 +29,12 @@ function parse_host_suffix {
             PS1_HOST_SUFFIX='Mac'; echo $PS1_HOST_SUFFIX; return
             ;;
         Linux*-WSL2*)
-            [[ -n "${WSL_DISTRO_NAME}" ]] && {
+            if [[ -n "${WSL_DISTRO_NAME}" ]]; then
                 PS1_HOST_SUFFIX="${WSL_DISTRO_NAME}"
-            } || {
+            else
                 PS1_HOST_SUFFIX='Wsl2';
-            }
-            echo $PS1_HOST_SUFFIX ;
+            fi
+            echo "$PS1_HOST_SUFFIX" ;
             return
             ;;
         Linux*-Microsoft*)
@@ -49,7 +49,7 @@ function parse_host_suffix {
         # Other platform-type detections can be added here:
     esac
     if which lsb_release &>/dev/null; then
-        if lsb_release -a 2>/dev/null | egrep -q 'RedHat'; then
+        if lsb_release -a 2>/dev/null | grep -Eq 'RedHat'; then
             PS1_HOST_SUFFIX='rhat'; echo $PS1_HOST_SUFFIX; return
         fi
     fi
